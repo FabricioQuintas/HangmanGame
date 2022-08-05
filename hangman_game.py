@@ -2,6 +2,58 @@ import random # Get word
 import os # Clear screen
 
 
+HANGMAN_STATUS = ['''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+=========''']
+
+
 def read_data():
     try:
         # Open data.txt from this folder
@@ -63,6 +115,7 @@ def run():
     print(word)
     print(len(word))
     print(word_dict)
+    print(HANGMAN_PICS[0])
 
 
 if __name__ == '__main__':
