@@ -11,6 +11,7 @@ HANGMAN = '''
 |_| |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|
                     __/ |                      
                    |___/       
+            by Fabricio Quintas
 '''
 
 PICS = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========", 
@@ -26,6 +27,25 @@ PICS = ["  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
         "  +---+\n  |   |\n  O   |\n /|\  |\n /    |\n      |\n=========",
 
         "  +---+\n  |   |\n  O   |\n /|\  |\n / \  |\n      |\n========="]
+
+WIN_MESSAGE = '''
+$$\     $$\  $$$$$$\  $$\   $$\             $$\      $$\ $$$$$$\ $$\   $$\ 
+\$$\   $$  |$$  __$$\ $$ |  $$ |            $$ | $\  $$ |\_$$  _|$$$\  $$ |
+ \$$\ $$  / $$ /  $$ |$$ |  $$ |            $$ |$$$\ $$ |  $$ |  $$$$\ $$ |
+  \$$$$  /  $$ |  $$ |$$ |  $$ |            $$ $$ $$\$$ |  $$ |  $$ $$\$$ |
+   \$$  /   $$ |  $$ |$$ |  $$ |            $$$$  _$$$$ |  $$ |  $$ \$$$$ |
+    $$ |    $$ |  $$ |$$ |  $$ |            $$$  / \$$$ |  $$ |  $$ |\$$$ |
+    $$ |     $$$$$$  |\$$$$$$  |            $$  /   \$$ |$$$$$$\ $$ | \$$ |
+    \__|     \______/  \______/             \__/     \__|\______|\__|  \__|
+'''
+
+LOSE_MESSAGE = '''
+ __   _____  _   _      _     ___  ____  _____ 
+ \ \ / / _ \| | | |    | |   / _ \/ ___|| ____|
+  \ V / | | | | | |    | |  | | | \___ \|  _|  
+   | || |_| | |_| |    | |__| |_| |___) | |___ 
+   |_| \___/ \___/     |_____\___/|____/|_____|
+'''
 
 
 def read_data():
@@ -77,21 +97,49 @@ def dict_word(word):
     return word_dict
 
 
+def updateScreen(hangman_state, word, hit_letters):
+    os.system("clear") # Clear Terminal
+    print(HANGMAN) # Print HANGMAN logo
+    print(PICS[hangman_state]) # Print current hangman status
+    
+
 def run():
     list_of_words = read_data()
-    # Pick a random word from data
-    raw_word = random.choice(list_of_words)
-    # Normalize the word with the function 'normalize'
-    word = normalize(raw_word)
-    # Get the dict of the word
-    word_dict = dict_word(word)
+    raw_word = random.choice(list_of_words) # Pick a random word from data
+    word = normalize(raw_word) # Normalize the word with the function 'normalize'
+    word_dict = dict_word(word) # Get the dict of the word
 
-    print(word)
-    print(len(word))
-    print(word_dict)
-    print(HANGMAN)
-    print(PICS[0])
+    # Win status
+    won = False
+    os.system("clear") # Clear terminal
+    print(HANGMAN) # Print HANGMAN
+    user_input = input("Para empezar a jugar precione (X), sino presione cualquier otra tecla: ")
+    
+    try:
+        if user_input.lower().strip() == "x":
+            # Status count
+            hangman_state = 0
+    except:
+        quit()
+    
+    while hangman_state < 6 or won == False:
+        print(PICS[hangman_state])
+        won = True
+        print(PICS[6])
+        
+    quit()
+    
 
+
+
+
+    # print(word)
+    # print(len(word))
+    # print(word_dict)
+    # print(HANGMAN)
+    # print(PICS[0],"\n", PICS[6])
+    # print(WIN_MESSAGE)
+    # print(LOSE_MESSAGE)
 
 if __name__ == '__main__':
     run()
