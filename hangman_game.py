@@ -16,7 +16,7 @@ HANGMAN = '''
 
 MENU = '''
 ______________________________________________________________                       
-|     BIENVENIDO AL JUEGO DEL AHORACADO Ó HANGMAN GAME        |
+|     BIENVENIDO AL JUEGO DEL AHORACADO o HANGMAN GAME        |
 --------------------------------------------------------------
 Para comenzar presiona (s) y luego (Enter)
 Para salir presiona cualquier otra tecla
