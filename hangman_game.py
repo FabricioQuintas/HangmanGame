@@ -79,6 +79,15 @@ def read_data():
         quit()
 
 
+def initGame(data):
+    raw_word = random.choice(data).lower() # Pick a random word from data
+    word = normalize(raw_word).upper() # Normalize the word with the function 'normalize'
+    word_dict = dict_word(word) # Get the dict of the word
+    hidden_word = ["_"] * len(word)
+    # Return all variables
+    return word, word_dict, hidden_word
+
+
 def normalize(word): # Delete accent mark from a word
     # List of accent marks and his common letters
     a,b = 'áéíóúü','aeiouu'
@@ -111,6 +120,7 @@ def updateScreen(hangman_state, first_run, word, won):
 
     os.system("clear") # Clear Terminal
     print(HANGMAN) # Print HANGMAN logo
+
     # If hangman_state is 6, he lose
     if hangman_state == 6:
         print(LOSE_MESSAGE) # Print lose message
@@ -131,11 +141,8 @@ def updateScreen(hangman_state, first_run, word, won):
 
 
 def run():
-    list_of_words = read_data()
-    raw_word = random.choice(list_of_words).lower() # Pick a random word from data
-    word = normalize(raw_word).upper() # Normalize the word with the function 'normalize'
-    word_dict = dict_word(word) # Get the dict of the word
-    hidden_word = ["_"] * len(word)
+    data = read_data()
+    word, word_dict, hidden_word = initGame(data)
 
     hangman_state = 0 # First state of hangman
     first_run = True # First run
@@ -148,8 +155,15 @@ def run():
             first_run = False
         # Read the input
         user_input = input()
-        print(word_dict)
-
+        # Check answer if he lose / win
+        if hangman_state == 6 or won == True:
+            if user_input.strip().upper() == 'S':
+                hangman_state = 0 # Restart hangman state
+                won = False # Reset won status
+                word, word_dict, hidden_word = initGame(data) # Init the game again
+            else:
+                print("Gracias por jugar mi juego")
+                quit()
         # os.system("clear") # Clear terminal
         # print(HANGMAN) # Print HANGMAN
         # user_input = input(MENU)
@@ -158,7 +172,8 @@ def run():
         try:
             user_input = user_input.strip().upper()
             # If the user input is NOT 'S', quit game
-            if user_input != "S":    
+            if user_input != "S":
+                print("Gracias por probar mi juego")
                 quit()
             # Start a cicle, when hangman reach 6 the user loss
             while hangman_state < 6 and won == False:
@@ -205,8 +220,6 @@ def run():
             print(f)
             quit()
         
-
-
     # print(word)
     # print(len(word))
     # print(word_dict)
